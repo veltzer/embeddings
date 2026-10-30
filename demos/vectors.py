@@ -68,7 +68,9 @@ def fetch(name: str) -> Path:
     target.mkdir(parents=True, exist_ok=True)
     assets = {a["name"]: a["browser_download_url"] for a in release["assets"]}
     sums_file = target / "SHA256SUMS"
-    if not sums_file.exists():
+    # Fetched again when it does not name the file: a release can gain a
+    # language after a first download.
+    if not sums_file.exists() or f"  {name}\n" not in sums_file.read_text():
         sums_file.write_bytes(get(assets["SHA256SUMS"]))
     sums = {}
     for line in sums_file.read_text().splitlines():
