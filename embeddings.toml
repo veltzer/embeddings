@@ -45,6 +45,17 @@ name = "English"
 # the most linked and edited; download parts until this many bytes.
 max_download_bytes = 2500000000
 
+[languages.ru]
+name = "Russian"
+# The aliases of the File (Изображение) and Category (К) namespaces.
+namespace_aliases = ["Изображение", "К"]
+# ~6 GB compressed in all; capped like English, and for the same reason.
+max_download_bytes = 2500000000
+
+[languages.ru.train]
+# A corpus the size of English's, so the same three passes.
+epoch = 3
+
 [languages.en.train]
 # Its corpus is 2.3 times Hebrew's (~500M words against ~210M), so three
 # passes over it see more text than five over Hebrew, in 2.5 hours rather

@@ -7,7 +7,7 @@ trained is committed here.
 
 The languages are a parameter, not part of the design: each is a table under
 `[languages]` in `embeddings.toml`, and every script takes `--lang`. Today
-that is Hebrew (`he`) and English (`en`).
+that is Hebrew (`he`), English (`en`) and Russian (`ru`).
 
 ## What a release holds
 
@@ -44,6 +44,12 @@ mark dropped (which removes niqqud and Latin accents), Hebrew geresh and
 gershayim folded to `'` and `"`, casefolded. Words are runs of letters, with
 `'` or `"` allowed between letters; digits are not words. The manifest's
 `tokenizer_version` changes whenever that does.
+
+Dropping every combining mark has one cost in Russian: `й` decomposes to
+`и` plus a breve, so it is spelled `и` in the tables (`новый` is `новыи`,
+and `мой` and `мои` share a row), and `ё` is spelled `е`, as most Russian
+text spells it anyway. Look Russian words up through `tokenize()` and this
+is invisible; keeping `й` would be a new tokenizer version.
 
 ## Demos
 
@@ -83,14 +89,15 @@ python3 -m http.server                            # then open /demos/web/
 Hebrew results are noisier than English ones, for one reason: Hebrew
 attaches prefixes to the word (ו, ה, ב, ל, מ, ש, כ), so a word's nearest
 neighbors are often its own prefixed forms, and an analogy's answer often
-comes out with a prefix on it.
+comes out with a prefix on it. Russian has a milder version of the same:
+its inflected forms (six cases, three genders) are separate words.
 
 ## Building it
 
 Run from the repository root, inside the repository's venv (`uv sync`):
 
 ```bash
-scripts/run.py --lang en --lang he               # download, extract, train, align
+scripts/run.py --lang en --lang he --lang ru     # download, extract, train, align
 demos/similar.py --local --lang he מוסר           # eyeball the result
 demos/similar.py --local --lang he --in en מוסר
 scripts/export.py                                # out/release/
@@ -103,7 +110,7 @@ scripts/release.py                    # gh release create
    part, each checked against its published sha1, into `download/`. A
    language may cap it with `max_download_bytes`; English does, at
    2.5 GB of its ~26 GB, which in the 20261001 dump is its first 5 parts
-   (2.1 GB).
+   (2.1 GB), and so does Russian.
 2. `extract.py` - articles only, no redirects; templates, references, file,
    category and interwiki links dropped; one tokenized paragraph per line in
    `out/<lang>/corpus.txt`.

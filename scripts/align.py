@@ -36,17 +36,26 @@ def preprocess(vectors: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     return unit(vectors - mean), mean
 
 
-def dictionary(url: str, src_index: dict[str, int], dst_index: dict[str, int]) -> list[tuple[int, int]]:
-    """The pairs of url whose words both have vectors, as (src row, dst row)."""
-    with urllib.request.urlopen(url) as response:
-        text = response.read().decode("utf-8")
+def parse_pairs(text: str, src_index: dict[str, int], dst_index: dict[str, int]) -> list[tuple[int, int]]:
+    """The pairs of a dictionary whose words both have vectors, as (src row, dst row).
+
+    One pair per line, the two words separated by whitespace: MUSE's he-en
+    files use a tab, its ru-en files a space.
+    """
     pairs = []
     for line in text.splitlines():
-        src, _, dst = line.partition("\t")
-        s, d = src_index.get(normalize(src.strip())), dst_index.get(normalize(dst.strip()))
+        words = line.split()
+        if len(words) != 2:
+            continue
+        s, d = src_index.get(normalize(words[0])), dst_index.get(normalize(words[1]))
         if s is not None and d is not None:
             pairs.append((s, d))
     return pairs
+
+
+def dictionary(url: str, src_index: dict[str, int], dst_index: dict[str, int]) -> list[tuple[int, int]]:
+    with urllib.request.urlopen(url) as response:
+        return parse_pairs(response.read().decode("utf-8"), src_index, dst_index)
 
 
 def procrustes(src: np.ndarray, dst: np.ndarray) -> np.ndarray:

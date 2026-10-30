@@ -1,4 +1,4 @@
-"""Tests for the Procrustes fit and its precision measure in align.py."""
+"""Tests for the dictionary parse, the Procrustes fit and its precision measure in align.py."""
 
 import align
 import common
@@ -19,3 +19,10 @@ def test_precision_counts_any_gold_translation():
     # row 0's nearest is pivot 0 (gold); row 1's nearest is pivot 2, gold is 1 or 2
     assert align.precision(aligned, pivot, [(0, 0), (1, 1), (1, 2)], 1) == 1.0
     assert align.precision(aligned, pivot, [(0, 1), (1, 2)], 1) == 0.5
+
+
+def test_dictionary_pairs_split_on_tab_or_space():
+    src = {"כלב": 0, "кошка": 1}
+    dst = {"dog": 5, "cat": 6}
+    text = "כלב\tdog\nкошка cat\nкошка\tunknown\nbroken line here\n"
+    assert align.parse_pairs(text, src, dst) == [(0, 5), (1, 6)]
