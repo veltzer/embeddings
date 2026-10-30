@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Embeddings demo</title>
+<link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<main>
+<h1>Word embeddings in the browser</h1>
+<p>The tables are the top 50,000 words of each language from the
+<a href="https://github.com/veltzer/embeddings/releases">latest release</a>,
+quantized to int8 by <code>make_tables.py</code>. Every lookup below is a
+dot product against every row, in plain JavaScript.</p>
+
+<section>
+<h2>Similar words</h2>
+<form id="similar">
+<input name="word" value="chess" aria-label="word" dir="auto">
+<label>in <select name="from"><option value="en">English</option><option value="he">Hebrew</option></select></label>
+<label>neighbors in <select name="to"><option value="en">English</option><option value="he">Hebrew</option></select></label>
+<button>Find</button>
+</form>
+<ol class="results" id="similar-results"></ol>
+</section>
+
+<section>
+<h2>Analogy</h2>
+<form id="analogy">
+<input name="a" value="man" aria-label="a" dir="auto"> is to
+<input name="b" value="king" aria-label="b" dir="auto"> as
+<input name="c" value="woman" aria-label="c" dir="auto"> is to ?
+<label>words in <select name="from"><option value="en">English</option><option value="he">Hebrew</option></select></label>
+<label>answer in <select name="to"><option value="en">English</option><option value="he">Hebrew</option></select></label>
+<button>Solve</button>
+</form>
+<ol class="results" id="analogy-results"></ol>
+</section>
+
+<p id="status" role="status"></p>
+</main>
+<script src="demo.js"></script>
+</body>
+</html>

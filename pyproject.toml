@@ -25,6 +25,7 @@ package = false
 # implicit current directory.
 preset = "legacy"
 search-path = [
+    "demos",
     "scripts",
     ".",
 ]

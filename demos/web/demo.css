@@ -1,0 +1,70 @@
+:root {
+    --bg: #fdfdfc;
+    --fg: #1d1d1b;
+    --muted: #6b6b66;
+    --accent: #2a6db0;
+    --line: #dddcd6;
+    color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #17181a;
+        --fg: #e8e7e3;
+        --muted: #9a9993;
+        --accent: #7fb2e8;
+        --line: #34353a;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.5 system-ui, sans-serif;
+}
+
+main {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+}
+
+a {
+    color: var(--accent);
+}
+
+section {
+    border-top: 1px solid var(--line);
+    margin-top: 1.5rem;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+input {
+    width: 9rem;
+}
+
+input, select, button {
+    font: inherit;
+    padding: 0.25rem 0.5rem;
+}
+
+.results {
+    columns: 2;
+    color: var(--fg);
+}
+
+.results span {
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+}
+
+#status {
+    color: var(--muted);
+}

@@ -45,15 +45,55 @@ gershayim folded to `'` and `"`, casefolded. Words are runs of letters, with
 `'` or `"` allowed between letters; digits are not words. The manifest's
 `tokenizer_version` changes whenever that does.
 
+## Demos
+
+`demos/` uses the tables the way anyone would: from the newest release,
+downloaded on first use into `download/release/<tag>/`, checked against
+`SHA256SUMS` and cached as `.npy`, so only the first run of a language
+parses the text (half a minute; later runs load in a fraction of a second).
+Run them inside the repository's venv:
+
+```bash
+demos/similar.py --lang en chess                   # nearest words
+demos/similar.py --lang he --in en שחמט            # ...in the other language
+demos/analogy.py --lang en man king woman          # queen
+demos/analogy.py --lang en france paris italy      # rome
+demos/odd_one_out.py --lang en dog cat he:סוס he:שולחן
+demos/blog_search.py --lang en does morality need god
+demos/blog_search.py --lang en --posts he does morality need god
+```
+
+`blog_search.py` searches the posts of [veltzer.org](https://veltzer.org)
+through the site's own `search.json`: each post is the IDF-weighted average
+of its words' vectors, and a query in either language ranks the posts of
+either. It shows the limit of averaged word vectors as plainly as their
+use: a query whose words are close to a post's main words finds it without
+sharing a word, while a short abstract question ("can a computer think")
+is pulled toward whatever its rarest word is about.
+
+`demos/web/` does nearest words and analogies in the browser, in plain
+JavaScript, over the top 50,000 words of each language quantized to int8
+(about 16 MB per language):
+
+```bash
+demos/web/make_tables.py --lang en --lang he      # writes out/web/
+python3 -m http.server                            # then open /demos/web/
+```
+
+Hebrew results are noisier than English ones, for one reason: Hebrew
+attaches prefixes to the word (ו, ה, ב, ל, מ, ש, כ), so a word's nearest
+neighbors are often its own prefixed forms, and an analogy's answer often
+comes out with a prefix on it.
+
 ## Building it
 
 Run from the repository root, inside the repository's venv (`uv sync`):
 
 ```bash
-scripts/run.py --lang en --lang he    # download, extract, train, align
-scripts/neighbors.py --lang he מוסר   # eyeball the result
-scripts/neighbors.py --lang he --in en מוסר
-scripts/export.py                     # out/release/
+scripts/run.py --lang en --lang he               # download, extract, train, align
+demos/similar.py --local --lang he מוסר           # eyeball the result
+demos/similar.py --local --lang he --in en מוסר
+scripts/export.py                                # out/release/
 scripts/release.py                    # gh release create
 ```
 
