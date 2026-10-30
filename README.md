@@ -61,8 +61,9 @@ scripts/release.py                    # gh release create
 
 1. `download.py` - the newest finished Wikipedia articles dump, part by
    part, each checked against its published sha1, into `download/`. A
-   language may cap it with `max_download_bytes`; English does, at the
-   first 2.5 GB of its ~26 GB.
+   language may cap it with `max_download_bytes`; English does, at
+   2.5 GB of its ~26 GB, which in the 20261001 dump is its first 5 parts
+   (2.1 GB).
 2. `extract.py` - articles only, no redirects; templates, references, file,
    category and interwiki links dropped; one tokenized paragraph per line in
    `out/<lang>/corpus.txt`.
