@@ -1,0 +1,284 @@
+# generated
+/toolchain/
+/dist/
+/out/
+/debug/
+/download/
+*.out
+/.mypy_cache/
+/.ruff_cache/
+/.rumdl_cache/
+
+# folders to git ignore
+/*.gi
+/gi/
+
+# gems
+/gems/
+
+# hive
+derby.log
+dfs/
+metastore_db/
+
+# c, c++ stuff
+*.o
+*.so
+*.a
+*.dis
+/Makefile.bak
+*.o.ur-safe
+*.oo
+*.elf
+*.dep
+/core.*
+lib*.so.*
+*.gch
+*.pchi
+*.gcda
+*.map
+*.bin
+# cmake in-source build output; builds belong in build/ (ignored above)
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
+# kernel stuff
+*.ko
+# *.mod
+*.mod.c
+*.mod.cmd
+.*.o.cmd
+.*.ko.cmd
+.*.o.tmp
+.*.o.d
+.tmp_versions
+Module.symvers
+modules.order
+*.objdump
+/src/kernel/.*.tmp
+.modules.*.cmd
+.Module.*.cmd
+/flags.cfg
+# device tree binary files and binary overlay files
+*.dtb
+*.dtbo
+
+# sphinx
+/docs/_build/
+/docs/.doctrees/
+
+# mdBook build output
+/docs/book/
+
+# installations
+/external/
+/install/
+*.tar.gz
+
+# python
+__pycache__/
+*.py[oc]
+/wheel/
+/.venv/
+.coverage
+.coverage.*
+coverage.xml
+*.egg-info/
+
+# mine
+# error files left by the bashy prompt plugins (.uv.sync.errors,
+# .pydmt.build.errors, ...); unanchored because a sub-project's
+# pyproject root can sit below the git root
+.*.errors
+/.pydmt/
+*.stamp
+*.stamp.*
+
+# java
+*.class
+*.jar
+*.war
+*.ear
+*.jsa
+/.mtj.tmp/
+/hs_err_pid*
+
+# node modules
+node_modules/
+
+# ppt, pdf
+/doc/odp/*.pdf
+/doc/odp/*.ppt
+
+# intel compiler pgo
+*.dyn
+*.dpi
+# *.lock
+
+# dwarf dynamic debug info
+*.dwo
+
+# locks by open office
+.~lock.*
+
+# haskell
+*.hi
+
+# clojure
+.cpcache/
+
+# repositries of deb packages
+/deb/mypackage/DEBIAN/control
+
+# generic
+*.log
+*.swp
+
+# scons
+.sconsign.dblite
+
+# DS_Store
+.DS_Store
+
+# Java stuff
+.gradle/
+target/
+build/
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# c#
+# **/obj/ and **/bin/ match at any depth, which is what .NET output needs
+# (src/<proj>/bin, src/<proj>/obj). The un-globbed [Oo]bj/ and [Bb]in/ that
+# used to follow were redundant with these two and are gone.
+**/obj/
+**/bin/
+# perl-meta keeps real Perl sources under perl/bin/Meta/, not build output.
+!/perl/bin/
+
+# flash/air
+*.swf
+*.air
+*.apk
+*.ipa
+bin-debug/
+bin-release/
+
+# vscode
+.vscode/
+
+# qemu
+*.qcow2
+*.iso
+
+# jetbrains and eclipse
+.cache
+.settings
+.settings/
+.classpath
+.project
+.project.xml
+.idea/
+build.properties
+
+# spark
+spark-warehouse/
+
+# terraform
+.terraform*
+/.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+/terraform.lock.hcl
+
+# scala
+# Anchored: sbt's build dir is at the repo root. Unanchored, this also
+# swallowed source directories named project/ nested under src/.
+/project/
+
+# rust
+**/*.rs.bk
+**/mutants.out*/
+*.pdb
+# Anchored: this is the root debug build dir. Unanchored (and without a
+# trailing slash) it matched any file or directory named debug at any depth,
+# including authored example content.
+/debug/
+/.rsconstruct_cache.json
+
+# claude
+/.claude/
+/claude/
+.claude/projects/
+.claude/settings.local.json
+
+# static sites
+/_site/
+/public/
+/media/
+/static/build_info.toml
+/static/shared-themes/
+/build_info.json
+
+# manim
+/.manim_scratch/
+
+# terms
+/terms.ambiguous/
+/terms.single_meaning/
+
+# stm32 demos
+/STM32CubeWL/
+/exercises/*/*/.obj/
+/exercises/*/*/app*.elf
+/exercises/*/*/app*.map
+/exercises/*/*/firmware*.bin
+/exercises/common/.hal_obj_cm0/
+/exercises/common/.hal_obj_cm4/
+/exercises/common/.rsc_hal_obj_cm0/
+/exercises/common/.rsc_hal_obj_cm4/
+/exercises/common/libhal_cm0.a
+/exercises/common/libhal_cm4.a
+/exercises/common/libhal_rsc_cm0.a
+/exercises/common/libhal_rsc_cm4.a
+
+# secrets
+creds.txt
+
+# rsconstruct
+/.rsconstruct/
+
+# generated website pieces (built into the Pages artifact by CI)
+/docs/output/
+/docs/index.html
+# sphinx html output: the 14 py* repos render docs/ from sphinx/ and publish
+# it as the Pages artifact, so none of it is committed. Listed path by path
+# rather than as /docs/ because the rs* repos keep hand-written mdBook
+# sources there, and several others keep authored html.
+/docs/_modules/
+/docs/_sources/
+/docs/_static/
+/docs/.buildinfo
+/docs/objects.inv
+/docs/searchindex.js
+/docs/.nojekyll
+# sphinx's top-level html. Not a blanket /docs/*.html: js-jschess and the
+# site-personal-* repos keep hand-authored html under docs/. The fixed pages
+# (genindex, modules, search) and the authored-rst pages some repos render
+# (architecture, notes, ...) are listed by name; the one-page-per-module
+# output is /docs/py*.html, since every package here is named py*.
+/docs/architecture.html
+/docs/cli-reference.html
+/docs/development.html
+/docs/genindex.html
+/docs/modules.html
+/docs/notes.html
+/docs/overview.html
+/docs/py*.html
+/docs/quota-guide.html
+/docs/search.html
+
+# per-machine tool resolution cache (absolute paths, not portable)
+/.tools.versions

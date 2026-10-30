@@ -1,0 +1,46 @@
+# What the pipeline builds, and from what. Every script takes --lang, which
+# must name one of the [languages] tables below; adding a language is adding
+# a table here.
+
+# The language whose vector space every other language is rotated into (see
+# scripts/align.py). It is published exactly as trained.
+pivot = "en"
+
+# fastText unsupervised training, the same for every language unless a
+# [languages.<lang>.train] table overrides a key.
+[train]
+model = "skipgram"
+dim = 300
+epoch = 5
+# Words rarer than this get no vector of their own.
+min_count = 5
+# Character n-gram lengths: the subword pieces that let fastText learn
+# Hebrew prefixes and inflections from the stems they share.
+minn = 3
+maxn = 6
+
+[export]
+# The released table keeps the most frequent words only; the full
+# vocabulary runs to millions of mostly-misspelled hapaxes.
+words = 200000
+
+[align]
+# MUSE's bilingual dictionaries (github.com/facebookresearch/MUSE): the
+# 0-5000 file fits the rotation, the 5000-6500 file measures it on pairs
+# it never saw. {src} and {dst} are language codes.
+train_url = "https://dl.fbaipublicfiles.com/arrival/dictionaries/{src}-{dst}.0-5000.txt"
+test_url = "https://dl.fbaipublicfiles.com/arrival/dictionaries/{src}-{dst}.5000-6500.txt"
+
+[languages.he]
+name = "Hebrew"
+# Link prefixes that are namespace aliases: extract.py reads the canonical
+# namespace names from the dump, which does not list aliases.
+namespace_aliases = ["תמונה"]
+# No max_download_bytes: all of Hebrew Wikipedia (~1.2 GB compressed).
+
+[languages.en]
+name = "English"
+# The whole of English Wikipedia is ~26 GB compressed. Its dump parts are in
+# page-id order, so the first parts hold the oldest articles, which are also
+# the most linked and edited; download parts until this many bytes.
+max_download_bytes = 2500000000

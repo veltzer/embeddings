@@ -1,0 +1,45 @@
+
+# rsconstruct build configuration for this repository.
+#
+# This builds and checks the code only. The pipeline itself (scripts/run.py:
+# gigabytes of Wikipedia, an hour of training) is run by hand and its result
+# published as a GitHub release; see README.md.
+
+[build]
+# src_dirs entries name directories; "." (the whole tree) is a config error
+reject_dot_src_dirs = true
+
+[analyzer.python]
+
+[processor.checker.ruff]
+src_dirs = ["scripts", "tests"]
+
+[processor.checker.pyrefly]
+src_dirs = ["scripts", "tests"]
+
+[processor.checker.pytest]
+src_dirs = ["tests"]
+# Everything the tests import, so an edit to any of it re-runs the suite on
+# a warm cache.
+dep_inputs = [
+    "scripts/align.py",
+    "scripts/common.py",
+    "scripts/extract.py",
+]
+
+# ─── toml / yaml ─────────────────────────────────────────────────────────────
+
+[processor.checker.taplo]
+src_files = [".rumdl.toml", "embeddings.toml", "pyproject.toml", "rsconstruct.toml"]
+
+# lint the GitHub Actions workflow files with actionlint
+[processor.checker.iactionlint]
+src_dirs = [".github/workflows"]
+
+[processor.checker.iyamllint]
+src_dirs = [".github"]
+
+# ─── markdown ────────────────────────────────────────────────────────────────
+
+[processor.checker.rumdl]
+src_files = ["README.md"]

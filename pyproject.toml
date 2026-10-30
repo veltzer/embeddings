@@ -1,0 +1,38 @@
+[project]
+name = "embeddings"
+version = "0.0.0"
+requires-python = ">=3.14"
+dependencies = [
+    "fasttext",
+    "mwparserfromhell",
+    "numpy",
+]
+
+[dependency-groups]
+dev = [
+    "pyrefly",
+    "pytest",
+    "ruff",
+]
+
+[tool.uv]
+# A pipeline of scripts, not an installable package.
+package = false
+
+[tool.pyrefly]
+# Type checking (rsconstruct's pyrefly processor). preset = "legacy" is
+# pyrefly's mypy-compatible behavior; "." on the search path is mypy's
+# implicit current directory.
+preset = "legacy"
+search-path = [
+    "scripts",
+    ".",
+]
+# Third-party libraries without type information.
+ignore-missing-imports = [
+    "fasttext.*",
+]
+
+[tool.pytest.ini_options]
+# Tests import from here: the scripts are standalone executables, not an installed package.
+pythonpath = ["scripts"]
