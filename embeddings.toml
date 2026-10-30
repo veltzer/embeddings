@@ -44,3 +44,9 @@ name = "English"
 # page-id order, so the first parts hold the oldest articles, which are also
 # the most linked and edited; download parts until this many bytes.
 max_download_bytes = 2500000000
+
+[languages.en.train]
+# Its corpus is 2.3 times Hebrew's (~500M words against ~210M), so three
+# passes over it see more text than five over Hebrew, in 2.5 hours rather
+# than 4 on a 16-core machine.
+epoch = 3
