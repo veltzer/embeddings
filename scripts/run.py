@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Run the per-language steps for one or more languages, in order.
 
 download, extract, train and align, each skipped when its output is

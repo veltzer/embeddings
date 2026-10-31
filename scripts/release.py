@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Publish out/release/ as a GitHub release of this repository.
 
 The tag is the date of the newest dump in the release (dumps are dated,

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Train fastText word vectors on a language's corpus.
 
 Writes the full model (model.bin, with the subword table that gives any

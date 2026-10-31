@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Write the trimmed tables the browser demo loads, into out/web/.
 
 Per language: <lang>.words.json (the most frequent --words words),

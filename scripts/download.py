@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Download a language's Wikipedia articles dump.
 
 Takes the newest dump whose articles job is done, in its numbered parts,

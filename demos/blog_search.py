@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Semantic search over the posts of veltzer.org, from the site's own search index.
 
 A post's vector is the average of its words' vectors, weighted by IDF (how

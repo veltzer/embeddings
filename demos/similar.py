@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """The nearest words to each given word, in its own language or another.
 
     demos/similar.py --lang he מוסר שחמט

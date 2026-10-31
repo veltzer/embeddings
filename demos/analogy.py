@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Analogies by vector arithmetic: a is to b as c is to what?
 
 The answer is the word nearest to b - a + c (Mikolov's 3CosAdd), the three

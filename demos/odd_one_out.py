@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Which of the given words does not belong with the others?
 
 Each word is scored by its mean cosine to the rest; the lowest is the odd

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Put a language's vectors in the shared space: final.vec.
 
 Every language is preprocessed the same way (unit length, mean-centered,

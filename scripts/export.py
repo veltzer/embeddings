@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Assemble the release in out/release/ from every language that has a final.vec.
 
 Each language becomes <lang>.vec.gz, and manifest.json records what made

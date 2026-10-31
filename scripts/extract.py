@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Turn a language's downloaded Wikipedia dump into a training corpus.
 
 The corpus is one paragraph per line, as tokenize() returns it: normalized
