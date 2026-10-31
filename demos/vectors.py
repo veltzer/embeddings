@@ -61,9 +61,10 @@ def get(url: str) -> bytes:
         return response.read()
 
 
-def fetch(name: str) -> Path:
-    """Download one asset of the newest release (once) and verify it."""
-    release = json.loads(get(f"https://api.github.com/repos/{REPO}/releases/latest"))
+def fetch(name: str, tag: str | None = None) -> Path:
+    """Download one asset of a release (once) and verify it: the newest, or the one tagged tag."""
+    which = "latest" if tag is None else f"tags/{tag}"
+    release = json.loads(get(f"https://api.github.com/repos/{REPO}/releases/{which}"))
     target = CACHE / release["tag_name"]
     target.mkdir(parents=True, exist_ok=True)
     assets = {a["name"]: a["browser_download_url"] for a in release["assets"]}

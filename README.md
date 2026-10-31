@@ -79,11 +79,16 @@ is pulled toward whatever its rarest word is about.
 
 `demos/web/` does nearest words and analogies in the browser, in plain
 JavaScript, over the top 50,000 words of each language quantized to int8
-(about 16 MB per language):
+(about 16 MB per language). It is published at
+[veltzer.org/embeddings](https://veltzer.org/embeddings/): the CI build runs
+`make_tables.py`, which writes the page and its tables into `out/web/`, and
+deploys that directory to GitHub Pages. The tables come from the release
+`[web]` in `embeddings.toml` names, not the newest one, so a new release
+reaches the site when that line is changed to it. To try it locally:
 
 ```bash
-demos/web/make_tables.py --lang en --lang he      # writes out/web/
-python3 -m http.server                            # then open /demos/web/
+demos/web/make_tables.py                          # writes out/web/
+python -m http.server -d out/web                  # then open localhost:8000
 ```
 
 Hebrew results are noisier than English ones, for one reason: Hebrew
@@ -120,8 +125,9 @@ scripts/release.py                    # gh release create
 
 Everything under `download/` and `out/` is ignored by git.
 
-The CI build (`rsconstruct build`) checks the code only - ruff, pyrefly,
-pytest and the config linters. It does not run the pipeline.
+The CI build (`rsconstruct build`) checks the code - ruff, pyrefly, pytest
+and the linters - and builds the browser demo from the pinned release. It
+does not run the pipeline.
 
 ## Licenses
 

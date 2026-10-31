@@ -1,7 +1,7 @@
 // Nearest words and analogies over the trimmed tables make_tables.py writes
-// into out/web/. Serve the repository root (python3 -m http.server) and open
-// /demos/web/: the tables are fetched from /out/web/, one language the first
-// time a form needs it.
+// beside this page in out/web/ (the GitHub Pages site). site.json names the
+// release and the languages; a language's table is fetched the first time a
+// form needs it. To try it locally: python -m http.server -d out/web
 //
 // normalize() must stay what tokenize() in scripts/common.py does, since the
 // tables are keyed by it: compatibility-decompose, fold the Hebrew geresh and
@@ -10,7 +10,7 @@
 (function () {
     'use strict';
 
-    const DATA = '../../out/web/';
+    const DATA = './';
     const tables = {};
     const status = document.getElementById('status');
 
@@ -25,7 +25,7 @@
 
     async function fetchOk(url) {
         const response = await fetch(url);
-        if (!response.ok) throw new Error(url + ': ' + response.status + ' (run make_tables.py first)');
+        if (!response.ok) throw new Error(url + ': ' + response.status);
         return response;
     }
 
@@ -87,9 +87,12 @@
 
     function show(list, found) {
         list.replaceChildren.apply(list, found.map(function (item) {
+            // The row stays left to right, so numbers and scores line up
+            // whatever the language; <bdi> lays a Hebrew word out on its own.
             const li = document.createElement('li');
-            li.dir = 'auto';
-            li.textContent = item.word + ' ';
+            const word = document.createElement('bdi');
+            word.textContent = item.word;
+            li.append(word, ' ');
             const score = document.createElement('span');
             score.textContent = item.score.toFixed(2);
             li.appendChild(score);
@@ -128,6 +131,26 @@
         const exclude = from === to ? new Set(given.map(normalize)) : new Set();
         show(list, nearest(to, q, 8, exclude));
     }
+
+    // Fill the language menus from site.json: "from" starts on the first
+    // language, "to" on the second, so the defaults show the shared space.
+    async function setup() {
+        const site = await fetchOk(DATA + 'site.json').then(function (r) { return r.json(); });
+        const release = document.getElementById('release');
+        release.textContent = site.release;
+        release.href = 'https://github.com/veltzer/embeddings/releases/tag/' + site.release;
+        document.getElementById('words').textContent = site.words.toLocaleString('en') + ' most frequent';
+        document.querySelectorAll('select').forEach(function (select) {
+            site.languages.forEach(function (lang) {
+                select.add(new Option(lang.name, lang.code));
+            });
+        });
+        document.querySelectorAll('select[name="to"]').forEach(function (select) {
+            if (site.languages.length > 1) select.selectedIndex = 1;
+        });
+    }
+
+    setup().catch(function (error) { status.textContent = error.message; });
 
     [['similar', similar], ['analogy', analogy]].forEach(function (pair) {
         const form = document.getElementById(pair[0]);

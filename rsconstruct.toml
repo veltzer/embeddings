@@ -29,6 +29,26 @@ dep_inputs = [
 
 # ─── the browser demo ────────────────────────────────────────────────────────
 
+# CI uploads this directory as the Pages artifact: the demo page and the
+# tables it searches, built from the release [web] in embeddings.toml pins.
+[pages]
+dir = "out/web"
+
+# Downloads the pinned release (three 160 MB tables) whenever an input
+# changes; otherwise the site is restored from the cache.
+[processor.explicit.generic.web]
+command = "demos/web/make_tables.py"
+inputs = [
+    "embeddings.toml",
+    "demos/web/make_tables.py",
+    "demos/web/index.html",
+    "demos/web/demo.js",
+    "demos/web/demo.css",
+    "demos/vectors.py",
+    "scripts/common.py",
+]
+output_dirs = ["out/web"]
+
 [processor.checker.oxlint]
 src_dirs = ["demos/web"]
 args = ["-c", ".oxlintrc.json"]

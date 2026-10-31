@@ -24,6 +24,16 @@ maxn = 6
 # vocabulary runs to millions of mostly-misspelled hapaxes.
 words = 200000
 
+[web]
+# The browser demo (demos/web/, published to GitHub Pages): which release
+# its tables come from, which of its languages, and how many words of each.
+# Pinned rather than "latest" so the site is a function of this repository:
+# a new release reaches the site when this line says so.
+release = "20261001"
+languages = ["en", "he", "ru"]
+# 50,000 words of 300 int8 dimensions: about 16 MB per language.
+words = 50000
+
 [align]
 # MUSE's bilingual dictionaries (github.com/facebookresearch/MUSE): the
 # 0-5000 file fits the rotation, the 5000-6500 file measures it on pairs
