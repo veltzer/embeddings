@@ -48,6 +48,8 @@ inputs = [
     "scripts/common.py",
 ]
 output_dirs = ["out/web"]
+# The download above comes from GitHub.
+sandbox_network = true
 
 [processor.checker.oxlint]
 src_dirs = ["demos/web"]
