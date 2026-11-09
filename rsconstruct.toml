@@ -50,6 +50,9 @@ inputs = [
 output_dirs = ["out/web"]
 # The download above comes from GitHub.
 sandbox_network = true
+# and lands in download/, the gitignored cache scripts/common.py keeps so a
+# re-run does not download again; not an output
+sandbox_writable = ["download"]
 
 [processor.checker.oxlint]
 src_dirs = ["demos/web"]
