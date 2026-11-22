@@ -56,7 +56,8 @@ sandbox_writable = ["download"]
 
 [processor.checker.oxlint]
 src_dirs = ["demos/web"]
-args = ["-c", ".oxlintrc.json"]
+args = ["-c", ".oxlintrc.repo.json"]
+dep_inputs = [".oxlintrc.repo.json"]
 
 [processor.checker.itidy]
 src_dirs = ["demos/web"]
