@@ -4,8 +4,9 @@ The tokenizer is the contract every consumer of the vectors must match, so
 the cases pin down exactly what it folds and what it keeps.
 """
 
-import common
 import numpy as np
+
+import common
 
 
 class TestTokenize:
@@ -13,10 +14,10 @@ class TestTokenize:
         assert common.tokenize("שָׁלוֹם עוֹלָם") == ["שלום", "עולם"]
 
     def test_folds_geresh_and_gershayim(self):
-        assert common.tokenize("צ׳יפס של צה״ל") == ["צ'יפס", "של", 'צה"ל']
+        assert common.tokenize("ג\u05f3ק של צה\u05f4ל") == ["ג'ק", "של", 'צה"ל']
 
     def test_keeps_apostrophe_inside_words(self):
-        assert common.tokenize("Don’t stop") == ["don't", "stop"]
+        assert common.tokenize("Don\u2019t stop") == ["don't", "stop"]
 
     def test_drops_accents_and_case(self):
         assert common.tokenize("Café NAÏVE") == ["cafe", "naive"]

@@ -10,6 +10,7 @@ look at a table before it is released.
 
 import gzip
 import hashlib
+import importlib
 import json
 import sys
 import urllib.request
@@ -22,7 +23,11 @@ ROOT = Path(__file__).resolve().parent.parent
 # The tokenizer is the contract the tables are keyed by: use the pipeline's
 # own rather than a copy that could drift from it.
 sys.path.insert(0, str(ROOT / "scripts"))
-from common import final_vec, normalize, read_vec, tokenize
+common = importlib.import_module("common")
+final_vec = common.final_vec
+normalize = common.normalize
+read_vec = common.read_vec
+tokenize = common.tokenize
 
 REPO = "veltzer/embeddings"
 CACHE = ROOT / "download" / "release"

@@ -6,8 +6,8 @@ one out. The words may mix languages, written as lang:word when they are
 not in --lang:
 
     demos/odd_one_out.py --lang en breakfast lunch dinner chess
-    demos/odd_one_out.py --lang he כלב חתול סוס שולחן
-    demos/odd_one_out.py --lang en dog cat he:סוס he:שולחן
+    demos/odd_one_out.py --lang he כלב פיל דג מיטה
+    demos/odd_one_out.py --lang en dog cat he:פיל he:מיטה
 """
 
 import argparse

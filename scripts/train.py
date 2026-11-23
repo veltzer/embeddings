@@ -12,6 +12,7 @@ import time
 
 import fasttext
 import numpy as np
+
 from common import (
     corpus_file,
     lang_parser,
@@ -47,7 +48,7 @@ def main() -> None:
 
     # get_words() is most frequent first.
     vocabulary = model.get_words()
-    words = vocabulary[: config["export"]["words"]]
+    words = [str(w) for w in vocabulary[: config["export"]["words"]]]
     vectors = unit(np.array([model.get_word_vector(w) for w in words], dtype=np.float32))
     write_vec(trained_vec(args.lang), words, vectors)
 

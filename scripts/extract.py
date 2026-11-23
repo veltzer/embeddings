@@ -9,6 +9,7 @@ words, which are headings, captions and list fragments rather than prose.
 """
 
 import bz2
+import contextlib
 import json
 import multiprocessing
 import os
@@ -18,6 +19,7 @@ from collections.abc import Iterator
 from pathlib import Path
 
 import mwparserfromhell
+
 from common import DOWNLOAD, corpus_file, lang_parser, load_config, stats_file, tokenize
 
 MIN_TOKENS = 5
@@ -25,7 +27,7 @@ MIN_TOKENS = 5
 # Link prefixes whose link is not prose: the wiki's namespace names (read
 # from the dump's siteinfo, so they are right in every language) and
 # interwiki language codes. Set in each worker by init_worker().
-_link_prefixes: frozenset[str] = frozenset()
+_link_prefixes: set[str] = set()
 # "en", "fr", "zh-yue", "be-tarask": an interwiki link. Real titles with a
 # colon ("Star Wars: A New Hope", "Spider-Man: Homecoming") do not match.
 _LANGUAGE_CODE = re.compile(r"[a-z]{2,3}(?:-[a-z]{2,8})*")
@@ -67,8 +69,8 @@ def pages(path: Path, prefixes: set[str]) -> Iterator[str]:
 
 
 def init_worker(prefixes: frozenset[str]) -> None:
-    global _link_prefixes
-    _link_prefixes = prefixes
+    _link_prefixes.clear()
+    _link_prefixes.update(prefixes)
 
 
 def is_prose_link(title: str) -> bool:
@@ -87,10 +89,8 @@ def clean(wikitext: str) -> list[str]:
     doomed = [tag for tag in code.filter_tags() if str(tag.tag).strip().casefold() in _DROP_TAGS]
     doomed += [link for link in code.filter_wikilinks(recursive=False) if not is_prose_link(str(link.title))]
     for node in doomed:
-        try:
+        with contextlib.suppress(ValueError):  # inside a node removed before it
             code.remove(node)
-        except ValueError:  # inside a node removed before it
-            pass
     text = code.strip_code(normalize=True, collapse=True)
     out = []
     for paragraph in text.split("\n"):

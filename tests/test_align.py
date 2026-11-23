@@ -1,8 +1,9 @@
 """Tests for the dictionary parse, the Procrustes fit and its precision measure in align.py."""
 
+import numpy as np
+
 import align
 import common
-import numpy as np
 
 
 def test_procrustes_recovers_a_rotation():
@@ -22,7 +23,7 @@ def test_precision_counts_any_gold_translation():
 
 
 def test_dictionary_pairs_split_on_tab_or_space():
-    src = {"כלב": 0, "кошка": 1}
+    src = {"כלב": 0, "жить": 1}
     dst = {"dog": 5, "cat": 6}
-    text = "כלב\tdog\nкошка cat\nкошка\tunknown\nbroken line here\n"
+    text = "כלב\tdog\nжить cat\nжить\tunknown\nbroken line here\n"
     assert align.parse_pairs(text, src, dst) == [(0, 5), (1, 6)]

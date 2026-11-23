@@ -16,6 +16,7 @@ import json
 import urllib.request
 
 import numpy as np
+
 from common import (
     final_vec,
     lang_dir,

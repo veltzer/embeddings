@@ -33,9 +33,9 @@ TOKENIZER_VERSION = 1
 # once normalize() has folded them to ASCII. Digits are not words.
 _WORD = re.compile(r"[^\W\d_]+(?:['\"][^\W\d_]+)*")
 _FOLD = str.maketrans({
-    "׳": "'",  # Hebrew geresh
-    "״": '"',  # Hebrew gershayim
-    "’": "'",  # right single quotation mark, the typographic apostrophe
+    "\u05f3": "'",  # Hebrew geresh
+    "\u05f4": '"',  # Hebrew gershayim
+    "\u2019": "'",  # right single quotation mark, the typographic apostrophe
 })
 
 
