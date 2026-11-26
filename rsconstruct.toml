@@ -94,3 +94,7 @@ src_dirs = [".github"]
 
 [processor.checker.rumdl]
 src_files = ["README.md"]
+
+# lint the Lua configuration with luacheck (policy: .luacheckrc)
+[processor.checker.iluacheck]
+src_dirs = ["config"]
