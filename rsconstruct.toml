@@ -87,6 +87,7 @@ src_dirs = [".github/workflows"]
 args = ["--offline", "--no-progress", "--persona=pedantic"]
 
 [processor.checker.iyamllint]
+src_files = [".yamllint.yaml"]
 src_dirs = [".github"]
 
 # ─── markdown ────────────────────────────────────────────────────────────────
