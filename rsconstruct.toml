@@ -71,7 +71,7 @@ src_extensions = [".css"]
 # ─── toml / yaml ─────────────────────────────────────────────────────────────
 
 [processor.checker.taplo]
-src_files = [".rumdl.toml", "embeddings.toml", "pyproject.toml", "rsconstruct.toml"]
+src_files = [".ruff.toml", ".rumdl.toml", "embeddings.toml", "pyproject.toml", "rsconstruct.toml"]
 
 # lint the GitHub Actions workflow files with actionlint
 [processor.checker.iactionlint]
