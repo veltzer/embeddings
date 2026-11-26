@@ -119,7 +119,7 @@ def parse(path: Path) -> tuple[list[str], np.ndarray]:
     return words, vectors
 
 
-def load(lang: str, local: bool = False) -> Table:
+def load(lang: str, *, local: bool = False) -> Table:
     if local:
         words, vectors = read_vec(final_vec(lang))
         return Table(lang, words, vectors)

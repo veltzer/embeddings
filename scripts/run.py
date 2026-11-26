@@ -26,7 +26,7 @@ def done(step: str, lang: str) -> bool:
     return final_vec(lang).exists()
 
 
-def run(step: str, lang: str, force: bool) -> None:
+def run(step: str, lang: str, *, force: bool) -> None:
     if done(step, lang) and not force:
         print(f"== {lang} {step}: done already", flush=True)
         return
@@ -51,7 +51,7 @@ def main() -> None:
         sys.exit(f"aligning needs the pivot ({pivot}) trained first: add --lang {pivot}")
     for lang in languages:
         for step in STEPS:
-            run(step, lang, args.force)
+            run(step, lang, force=args.force)
 
 
 if __name__ == "__main__":

@@ -20,8 +20,8 @@ def main() -> None:
     parser.add_argument("words", nargs="+")
     args = parser.parse_args()
 
-    table = load(args.lang, args.local)
-    target = table if args.target in (None, args.lang) else load(args.target, args.local)
+    table = load(args.lang, local=args.local)
+    target = table if args.target in (None, args.lang) else load(args.target, local=args.local)
     for word in args.words:
         vector = table.vector(word)
         if vector is None:
