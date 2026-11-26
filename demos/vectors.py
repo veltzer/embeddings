@@ -70,14 +70,16 @@ def get(url: str) -> bytes:
     if token and url.startswith("https://api.github.com/"):
         request.add_header("Authorization", f"Bearer {token}")
     with urllib.request.urlopen(request) as response:
-        return response.read()
+        body: bytes = response.read()
+        return body
 
 
 def fetch(name: str, tag: str | None = None) -> Path:
     """Download one asset of a release (once) and verify it: the newest, or the one tagged tag."""
     which = "latest" if tag is None else f"tags/{tag}"
     release = json.loads(get(f"https://api.github.com/repos/{REPO}/releases/{which}"))
-    target = CACHE / release["tag_name"]
+    tag_name: str = release["tag_name"]
+    target = CACHE / tag_name
     target.mkdir(parents=True, exist_ok=True)
     assets = {a["name"]: a["browser_download_url"] for a in release["assets"]}
     sums_file = target / "SHA256SUMS"

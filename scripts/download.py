@@ -35,7 +35,8 @@ def first_page(name: str) -> int:
 def get(url: str) -> bytes:
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(request) as response:
-        return response.read()
+        body: bytes = response.read()
+        return body
 
 
 def newest_done(wiki: str) -> tuple[str, dict[str, Any]]:

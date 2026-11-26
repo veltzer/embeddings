@@ -32,7 +32,8 @@ TITLE_WEIGHT = 3
 
 def posts(lang: str) -> list[dict]:
     with urllib.request.urlopen(f"{SITE}/{lang}/search.json") as response:
-        return json.loads(response.read())["pages"]
+        pages: list[dict] = json.loads(response.read())["pages"]
+        return pages
 
 
 def embed(counts: Counter, table: Table, idf: dict[str, float], default_idf: float) -> np.ndarray | None:
