@@ -14,10 +14,12 @@ import shutil
 import sys
 import urllib.error
 import urllib.request
-from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from common import DOWNLOAD, lang_parser, load_config, stats_file
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 DUMPS = "https://dumps.wikimedia.org"
 # Wikimedia asks every client to identify itself.

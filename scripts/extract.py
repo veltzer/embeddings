@@ -15,12 +15,15 @@ import multiprocessing
 import os
 import re
 import xml.etree.ElementTree as ET
-from collections.abc import Iterator
-from pathlib import Path
+from typing import TYPE_CHECKING
 
 import mwparserfromhell
 
 from common import DOWNLOAD, corpus_file, lang_parser, load_config, stats_file, tokenize
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
+    from pathlib import Path
 
 MIN_TOKENS = 5
 

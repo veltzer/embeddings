@@ -11,11 +11,13 @@ import gzip
 import re
 import tomllib
 import unicodedata
-from collections.abc import Iterator
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import numpy as np
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG_FILE = ROOT / "embeddings.toml"
