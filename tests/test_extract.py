@@ -3,11 +3,11 @@
 import extract
 
 
-def setup_module():
+def setup_module() -> None:
     extract.init_worker(frozenset({"file", "category", "קובץ", "קטגוריה"}))
 
 
-def test_keeps_prose_links_drops_file_category_and_interwiki():
+def test_keeps_prose_links_drops_file_category_and_interwiki() -> None:
     text = (
         "The [[jazz|music]] of [[New Orleans]] grew from [[Star Wars: A New Hope|nothing at all]] here.\n"
         "[[File:Band.jpg|thumb|A band playing loudly]]\n[[Category:Music]] [[fr:Jazz]]"
@@ -15,10 +15,10 @@ def test_keeps_prose_links_drops_file_category_and_interwiki():
     assert extract.clean(text) == ["the music of new orleans grew from nothing at all here"]
 
 
-def test_drops_templates_and_references():
+def test_drops_templates_and_references() -> None:
     text = "ג'אז{{הערה|מקור}} הוא סוגה מוזיקלית<ref>ספר</ref> שנוצרה בארצות הברית [[קובץ:x.jpg|ממוזער|כיתוב]]"
     assert extract.clean(text) == ["ג'אז הוא סוגה מוזיקלית שנוצרה בארצות הברית"]
 
 
-def test_drops_short_lines():
+def test_drops_short_lines() -> None:
     assert extract.clean("== Heading ==\nToo short.") == []

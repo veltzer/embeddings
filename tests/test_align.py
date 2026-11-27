@@ -6,7 +6,7 @@ import align
 import common
 
 
-def test_procrustes_recovers_a_rotation():
+def test_procrustes_recovers_a_rotation() -> None:
     rng = np.random.default_rng(0)
     src = common.unit(rng.normal(size=(200, 16)))
     rotation, _ = np.linalg.qr(rng.normal(size=(16, 16)))
@@ -14,7 +14,7 @@ def test_procrustes_recovers_a_rotation():
     np.testing.assert_allclose(fitted, rotation, atol=1e-6)
 
 
-def test_precision_counts_any_gold_translation():
+def test_precision_counts_any_gold_translation() -> None:
     pivot = np.eye(3)
     aligned = np.array([[1.0, 0.0, 0.0], [0.0, 0.1, 1.0]])
     # row 0's nearest is pivot 0 (gold); row 1's nearest is pivot 2, gold is 1 or 2
@@ -22,7 +22,7 @@ def test_precision_counts_any_gold_translation():
     assert align.precision(aligned, pivot, [(0, 1), (1, 2)], 1) == 0.5
 
 
-def test_dictionary_pairs_split_on_tab_or_space():
+def test_dictionary_pairs_split_on_tab_or_space() -> None:
     src = {"כלב": 0, "жить": 1}
     dst = {"dog": 5, "cat": 6}
     text = "כלב\tdog\nжить cat\nжить\tunknown\nbroken line here\n"
