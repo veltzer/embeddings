@@ -22,6 +22,7 @@ import json
 import math
 import urllib.request
 from collections import Counter
+from typing import Any
 
 import numpy as np
 from vectors import Table, load, normalize, tokenize
@@ -30,13 +31,13 @@ SITE = "https://veltzer.org"
 TITLE_WEIGHT = 3
 
 
-def posts(lang: str) -> list[dict]:
+def posts(lang: str) -> list[dict[str, Any]]:
     with urllib.request.urlopen(f"{SITE}/{lang}/search.json") as response:
-        pages: list[dict] = json.loads(response.read())["pages"]
+        pages: list[dict[str, Any]] = json.loads(response.read())["pages"]
         return pages
 
 
-def embed(counts: Counter, table: Table, idf: dict[str, float], default_idf: float) -> np.ndarray | None:
+def embed(counts: Counter[str], table: Table, idf: dict[str, float], default_idf: float) -> np.ndarray | None:
     total = np.zeros(table.vectors.shape[1], dtype=np.float32)
     for word, count in counts.items():
         row = table.index.get(word)

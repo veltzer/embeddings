@@ -14,11 +14,12 @@ import json
 import subprocess
 import tempfile
 from pathlib import Path
+from typing import Any
 
 from common import RELEASE
 
 
-def notes(manifest: dict) -> str:
+def notes(manifest: dict[str, Any]) -> str:
     out = [
         (
             "fastText word vectors trained on Wikipedia, one table per language, all in one shared space: "
