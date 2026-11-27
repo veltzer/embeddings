@@ -37,7 +37,8 @@ def head(path: Path, words: int) -> tuple[list[str], np.ndarray]:
     """The first words rows of a .vec.gz: the table is sorted most frequent first."""
     with gzip.open(path, "rt", encoding="utf-8") as f:
         count, dim = (int(x) for x in f.readline().split())
-        found, rows = [], []
+        found: list[str] = []
+        rows: list[np.ndarray] = []
         for _, line in zip(range(min(words, count)), f, strict=False):
             word, _, rest = line.partition(" ")
             found.append(word)

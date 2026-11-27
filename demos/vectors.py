@@ -110,7 +110,8 @@ def parse(path: Path) -> tuple[list[str], np.ndarray]:
     """A .vec.gz, read in one pass: much faster than read_vec()'s line-by-line parse."""
     with gzip.open(path, "rt", encoding="utf-8") as f:
         count, dim = (int(x) for x in f.readline().split())
-        words, numbers = [], []
+        words: list[str] = []
+        numbers: list[str] = []
         for line in f:
             word, _, rest = line.partition(" ")
             words.append(word)
